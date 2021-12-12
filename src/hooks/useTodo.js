@@ -1,10 +1,8 @@
-import { useState, createContext } from "react";
+import { useState } from "react";
 import useLocalStarege from '../hooks/useLocalstorage';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoContext = createContext();
-
-const TodoProvider = props => {
+const useTodo = () => {
 
     const [ search, setSearch ] = useState('');
 
@@ -45,9 +43,7 @@ const TodoProvider = props => {
         setTasks(newTasks);
     }
 
-    return(
-        <TodoContext.Provider
-            value={{
+    return  [
                 search,
                 setSearch,
                 tasks,
@@ -61,11 +57,8 @@ const TodoProvider = props => {
                 openModal,
                 addTaskContext,
                 addCompleted
-            }}
-        >
-            {props.children}
-        </TodoContext.Provider>
-    );
+            ];
+
 }
 
-export { TodoContext, TodoProvider }
+export default useTodo;

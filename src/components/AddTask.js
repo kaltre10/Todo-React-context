@@ -1,9 +1,5 @@
-import { useContext } from 'react';
-import { TodoContext } from '../todoContext';
 
-const AddTask = () => {
-
-    const { openModal } = useContext(TodoContext);
+const AddTask = ({ openModal }) => {
     
     return ( 
         <form>
