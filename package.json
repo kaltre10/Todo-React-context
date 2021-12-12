@@ -1,5 +1,5 @@
 {
-  "name": "todo-react-context",
+  "name": "Todo-React-context",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -41,5 +41,5 @@
   "devDependencies": {
     "gh-pages": "^3.2.3"
   },
-  "homepage": "https://kaltre10.github.io/todo-react-context"
+  "homepage": "https://kaltre10.github.io/Todo-React-context"
 }

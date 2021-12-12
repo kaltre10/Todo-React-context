@@ -21,9 +21,28 @@ const TodoIU = () => {
     } = useContext(TodoContext);
 
     const [ input, setInput ] = useState('');
+    const [ errorInput, setErrorInput] = useState(false);
 
-    const onChangeInput = e => setInput(e.target.value);
+    const onChangeInput = e => {
+      setErrorInput(false);
+      setInput(e.target.value);
+    };
+
+    const addTask = () => {
+
+      if(input.trim() === ''){
+        setErrorInput(true);
+        setInput('');
+        return;
+      }
+      
+      setInput('');
+      addTaskContext(input);
+      setErrorInput(false);
+    }
     
+    const { inputValue } = input; 
+
     return ( 
 
         <div className="App">
@@ -62,8 +81,14 @@ const TodoIU = () => {
                     <div className='modal'>
                       <h3>Agregra una nueva Tarea</h3>
                       <form>
-                        <div><textarea onChange={onChangeInput}></textarea></div>
-                        <button type='button' onClick={ () => addTaskContext(input)}>Añadir</button>
+                        <div>
+                              <textarea 
+                                className={ errorInput ? 'error-input' : ''}
+                                onChange={onChangeInput} 
+                                value={inputValue}>
+                              </textarea>
+                        </div>
+                        <button type='button' onClick={addTask}>Añadir</button>
                         <button type='button' onClick={openModal}>Cancelar</button>
                       </form>
                     </div>

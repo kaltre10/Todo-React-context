@@ -108,3 +108,8 @@ li{
 .modal button:hover{
   background-color: rgba(255, 140, 0, 0.445);
 }
+
+.modal .error-input{
+  border: 1px solid tomato;
+  background-color: rgba(255, 99, 71, 0.068);
+}
