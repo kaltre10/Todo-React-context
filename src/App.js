@@ -49,13 +49,22 @@ function App() {
     return ( 
 
         <div className="App">
+
             <h1>Todo React</h1>
             {(searchTask.length > 0 && !loading)
               ?<p>Has completado {tasksCompleted()} de {searchTask.length} tareas</p>
               : null}
-            <Search 
-              setSearch={setSearch} 
-            />
+
+            <Search>
+              <form>
+                  <input 
+                      type="text" 
+                      placeholder='Search...'
+                      onChange={e => setSearch(e.target.value)}
+                  />
+              </form>
+            </Search>
+
             { loading 
               ? <p> loading... </p>
               : (
@@ -74,6 +83,7 @@ function App() {
                   </ul>
                 )
             }
+            
             { stateModal
               ? (
                   <Modal>
@@ -96,7 +106,11 @@ function App() {
               : null
             }
             
-            <AddTask openModal={openModal} />
+            <AddTask>
+              <form>
+                <button type='button' onClick={openModal} className='btn-add-task'>+</button>
+              </form>
+            </AddTask>
         </div>
      );
 }

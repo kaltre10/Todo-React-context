@@ -1,11 +1,5 @@
+import { Fragment } from "react";
 
-const AddTask = ({ openModal }) => {
-    
-    return ( 
-        <form>
-            <button type='button' onClick={openModal} className='btn-add-task'>+</button>
-        </form>
-     );
-}
+const AddTask = ({ children }) => <Fragment>{children}</Fragment>;
  
 export default AddTask;

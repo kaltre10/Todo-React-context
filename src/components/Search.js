@@ -1,18 +1,5 @@
-const Search = ({ setSearch }) => {
+import { Fragment } from "react";
 
-    const inputSearch = e => {
-        setSearch(e.target.value);
-    }
-
-    return ( 
-        <form>
-            <input 
-                type="text" 
-                placeholder='Search...'
-                onChange={inputSearch}
-            />
-        </form>
-     );
-}
+const Search = ({ children }) => <Fragment>{ children }</Fragment>
  
 export default Search;
