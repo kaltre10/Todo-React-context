@@ -51,9 +51,8 @@ function App() {
         <div className="App">
 
             <h1>Todo React</h1>
-            {(searchTask.length > 0 && !loading)
-              ?<p>Has completado {tasksCompleted()} de {searchTask.length} tareas</p>
-              : null}
+            {searchTask.length > 0 &&
+              <p>Has completado {tasksCompleted()} de {searchTask.length} tareas</p>}
 
             <Search>
               <form>
@@ -65,46 +64,36 @@ function App() {
               </form>
             </Search>
 
-            { loading 
-              ? <p> loading... </p>
-              : (
-                  <ul>
-                    {tasks.length > 0
-                      ? ( searchTask.map( task => 
-                            <TodoItem
-                              key={task.id}
-                              task={task}
-                              tasksDelete={tasksDelete}
-                              addCompleted={addCompleted}
-                            />)   
-                        )
-                      : <p> No hay Tareas Agregadas..!</p>
-                    }
-                  </ul>
-                )
-            }
+            { loading && <p> loading... </p> }
+            { tasks.length === 0 && !loading && <p> No hay Tareas Agregadas..!</p> }
             
-            { stateModal
-              ? (
-                  <Modal>
-                    <div className='modal'>
-                      <h3>Agregra una nueva Tarea</h3>
-                      <form>
-                        <div>
-                              <textarea 
-                                className={ errorInput ? 'error-input' : ''}
-                                onChange={onChangeInput} 
-                                value={inputValue}>
-                              </textarea>
-                        </div>
-                        <button type='button' onClick={addTask}>Añadir</button>
-                        <button type='button' onClick={openModal}>Cancelar</button>
-                      </form>
+            <ul>
+              {searchTask.map( task => 
+                <TodoItem
+                  key={task.id}
+                  task={task}
+                  tasksDelete={tasksDelete}
+                  addCompleted={addCompleted}
+                />)}
+            </ul>
+                
+            {stateModal &&
+              <Modal>
+                <div className='modal'>
+                  <h3>Agregra una nueva Tarea</h3>
+                  <form>
+                    <div>
+                        <textarea 
+                          className={ errorInput ? 'error-input' : ''}
+                          onChange={onChangeInput} 
+                          value={inputValue}>
+                        </textarea>
                     </div>
-                  </Modal>
-                )
-              : null
-            }
+                    <button type='button' onClick={addTask}>Añadir</button>
+                    <button type='button' onClick={openModal}>Cancelar</button>
+                  </form>
+                </div>
+              </Modal>}
             
             <AddTask>
               <form>
