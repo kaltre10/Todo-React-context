@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Search from './components/Search';
 import TodoItem from './components/TodoItem';
 import AddTask from './components/AddTask';
+import TodoList from './components/TodoList';
 import Modal from './modals';
 import useTodo from './hooks/useTodo';
 
@@ -64,18 +65,22 @@ function App() {
               </form>
             </Search>
 
-            { loading && <p> loading... </p> }
-            { tasks.length === 0 && !loading && <p> No hay Tareas Agregadas..!</p> }
-            
-            <ul>
-              {searchTask.map( task => 
+            <TodoList
+               loading={loading}
+               tasks={tasks}
+               searchTask={searchTask}  
+               onLoading={() =>  <p>loading...</p>}
+               onEmptyTodos={() =>  <p> No hay Tareas Agregadas..!</p>}
+               onSearchTask={() => <p> No hay Resultados..!</p>}
+               tasks={tasks}
+               render={ task => 
                 <TodoItem
                   key={task.id}
                   task={task}
-                  tasksDelete={tasksDelete}
                   addCompleted={addCompleted}
-                />)}
-            </ul>
+                  tasksDelete={tasksDelete}
+                />}
+            />
                 
             {stateModal &&
               <Modal>
