@@ -5,6 +5,8 @@ import AddTask from './components/AddTask';
 import TodoList from './components/TodoList';
 import Modal from './modals';
 import useTodo from './hooks/useTodo';
+import Loader from './components/Loader';
+import ChangeAlertWithStorageListener from './components/hoc/changeAlert';
 
 function App() {
 
@@ -21,7 +23,9 @@ function App() {
         stateModal,
         openModal,
         addTaskContext,
-        addCompleted
+        addCompleted,
+        sincronize,
+        activeSincronize
     ] = useTodo();
 
     const [ input, setInput ] = useState('');
@@ -61,6 +65,7 @@ function App() {
                       type="text" 
                       placeholder='Search...'
                       onChange={e => setSearch(e.target.value)}
+                      disabled={loading}
                   />
               </form>
             </Search>
@@ -68,8 +73,9 @@ function App() {
             <TodoList
                loading={loading}
                tasks={tasks}
-               searchTask={searchTask}  
-               onLoading={() =>  <p>loading...</p>}
+               searchTask={searchTask} 
+               sincronize={sincronize} 
+               onLoading={() =>  <Loader />}
                onEmptyTodos={() =>  <p> No hay Tareas Agregadas..!</p>}
                onSearchTask={() => <p> No hay Resultados..!</p>}
                tasks={tasks}
@@ -80,7 +86,15 @@ function App() {
                   addCompleted={addCompleted}
                   tasksDelete={tasksDelete}
                 />}
-            />
+            >
+              {/* {task => 
+                <TodoItem
+                  key={task.id}
+                  task={task}
+                  addCompleted={addCompleted}
+                  tasksDelete={tasksDelete}
+                />} */}
+            </TodoList>
                 
             {stateModal &&
               <Modal>
@@ -100,11 +114,12 @@ function App() {
                 </div>
               </Modal>}
             
-            <AddTask>
-              <form>
-                <button type='button' onClick={openModal} className='btn-add-task'>+</button>
-              </form>
-            </AddTask>
+            <AddTask 
+              loading={loading}
+              openModal={openModal}
+            />
+
+            <ChangeAlertWithStorageListener activeSincronize={activeSincronize} />
         </div>
      );
 }

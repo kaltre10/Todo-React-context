@@ -8,8 +8,8 @@ const useTodo = () => {
 
     const [ stateModal, setModal ] = useState(false);
 
-    const [ tasks, setTasks, loading, error ] = useLocalStarege('tasksLocal', []);
-
+    const [ tasks, setTasks, loading, error, sincronize,  activeSincronize ] = useLocalStarege('tasksLocal', []);
+ 
     let searchTask;
 
     search !== ''
@@ -56,7 +56,9 @@ const useTodo = () => {
                 stateModal,
                 openModal,
                 addTaskContext,
-                addCompleted
+                addCompleted,
+                sincronize,
+                activeSincronize
             ];
 
 }

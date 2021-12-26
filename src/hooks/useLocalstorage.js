@@ -5,6 +5,7 @@ const useLocalStarege = (itemName, initialStorage) => {
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(false);
     const [ storageItem, setStorageItem ] = useState( initialStorage );
+    const [ sincronize, setSincronize ] = useState(true);
   
     useEffect(() => {
       setTimeout(() => {
@@ -12,12 +13,13 @@ const useLocalStarege = (itemName, initialStorage) => {
           const getItem = JSON.parse(localStorage.getItem(itemName)) || initialStorage;
           setStorageItem([...getItem]);
           setLoading(false);
+          setSincronize(true);
         } catch (error) {
           setError(error);
         }
       }, 1000);
       //eslint-disable-next-line
-    }, []);
+    }, [sincronize]);
   
     const setLocal = items => {
       try {
@@ -27,12 +29,19 @@ const useLocalStarege = (itemName, initialStorage) => {
         setError(error);
       }
     }
+
+    const activeSincronize = () => {
+      setLoading(true);
+      setSincronize(false);
+    }
   
     return [
       storageItem,
       setLocal,
       loading,
-      error
+      error,
+      sincronize,
+      activeSincronize
     ];
   
   }

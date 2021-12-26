@@ -113,3 +113,7 @@ li{
   border: 1px solid tomato;
   background-color: rgba(255, 99, 71, 0.068);
 }
+
+.input-loading{
+  opacity: .7;
+}
