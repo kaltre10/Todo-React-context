@@ -6,7 +6,8 @@ import TodoList from './components/TodoList';
 import Modal from './modals';
 import useTodo from './hooks/useTodo';
 import Loader from './components/Loader';
-import ChangeAlertWithStorageListener from './components/hoc/changeAlert';
+import ChangeAlert from './components/ChangeAlert';
+import useStorageListener from './hooks/useStorageListener';
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
         sincronize,
         activeSincronize
     ] = useTodo();
+
+    const { show, toggleShow } = useStorageListener(activeSincronize);
 
     const [ input, setInput ] = useState('');
     const [ errorInput, setErrorInput] = useState(false);
@@ -119,7 +122,7 @@ function App() {
               openModal={openModal}
             />
 
-            <ChangeAlertWithStorageListener activeSincronize={activeSincronize} />
+            <ChangeAlert show={show} toggleShow={toggleShow} />
         </div>
      );
 }

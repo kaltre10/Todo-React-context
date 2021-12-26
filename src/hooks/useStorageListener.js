@@ -1,8 +1,9 @@
 import {useState} from "react";
 
-const withStorageListener = (WrapperComponent) => {
-    return function WrapperComponentWithStorageListener(props){
+const useStorageListener = (activeSincronize) => {
+    
         const [ show, setShow ] = useState(false);
+
         window.addEventListener('storage', change => {
             if(change.key === 'tasksLocal'){
                 setShow(true);
@@ -10,13 +11,14 @@ const withStorageListener = (WrapperComponent) => {
         });
 
         const toggleShow = () => {
-            props.activeSincronize();
+            activeSincronize();
             setShow(false);
         }
-        return (
-            <WrapperComponent show={show} toggleShow={toggleShow} />
-        )
-    }
+
+        return {
+            show, 
+            toggleShow
+        }
 }
  
-export default withStorageListener;
+export default useStorageListener;
